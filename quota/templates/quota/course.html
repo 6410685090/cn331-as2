@@ -1,0 +1,14 @@
+{% extends "quota/layout.html" %}
+{% block body %}
+<h1>Course {{ course.id }}</h1>
+
+<ul>
+    <li>Course Name: {{ course.subject }}</li>
+    <li>Course ID: {{ course.subject_id }}</li>
+    <li>เหลือที่: {{ course.seat }}</li>
+</ul>
+
+<br>
+<a href="{% url 'index' %}">Back to Flight List</a>
+
+{% endblock %}
