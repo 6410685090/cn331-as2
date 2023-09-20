@@ -1,19 +1,26 @@
 {% extends 'users/layout.html' %}
 {% block body %}
-
-{% if message %}
-    <div>{{ message }}</div>
-{% endif %}
-
-<form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login">
-</form>
-
-ิ<br>
-
-<a href="{% url 'register' %}">Register</a>
-
+<link rel="stylesheet" href="../../static/users/css/stylelogin.css">
+<div class="form">
+    <form action="{% url 'login' %}" class="sub-form" method="post" >
+        {% csrf_token %}
+        <div class="upper-form">
+            <h2>SignIn</h2>
+            <label>Username</label>
+            <input type="text" name="username" required><br>
+            <label>Password</label>
+            <input type="password" name="password" required><br>
+            {% if message %}
+            <p style="padding-left: 10px;">{{ message }}</p>
+            {% endif %}
+            <div class="btn">
+                <button type="submit">Login</button>
+            </div>
+        </div>
+        <div class="bottom-form">
+            <div class="no-account">Don't have an account?</div>
+            <a href="{% url 'register' %}" class="signup">Signup</a>
+         </div>
+    </form>
+ </div>
 {% endblock %}
