@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 def index(request):
     return render(request, "users/index.html")
 
+def mainpage(request):
+    return render(request, "users/mainpage.html")
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -15,7 +18,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('indexuser'))
         else:
             return render(request, 'users/login.html', {
                 'message': 'Invalid credentials.'
@@ -23,15 +26,23 @@ def login_view(request):
 
     return render(request, "users/login.html")
 
+def mainpage(request):
+    return render(request, "users/mainpage.html")
 def register(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
+        cpassword = request.POST['cpassword']
         email = request.POST['email']
-        user = User.objects.create_user(username=username,
-            email=email,password=password)
-        user.save()
-        return render(request, "users/login.html")
+        if password == cpassword:
+            user = User.objects.create_user(username=username,
+                email=email,password=password)
+            user.save()
+            return render(request, "users/login.html")
+        else:
+            return render(request, 'users/register.html', {
+        'message': 'Confirm Password incorrect'
+        })
     return render(request, "users/register.html")
 
 def logout_view(request):
@@ -39,3 +50,5 @@ def logout_view(request):
     return render(request, 'users/login.html', {
         'message': 'Logged out'
     })
+
+
