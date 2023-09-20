@@ -1,6 +1,6 @@
 {% extends "quota/layout.html" %}
 {% block body %}
-<h1>Course</h1>
+<h1>All Course</h1>
 <ul>
     {% for c in cs %}
     <li><a href="{% url 'info' c.id %}">Course {{ c.id }}: {{ c.subject }}</a></li>

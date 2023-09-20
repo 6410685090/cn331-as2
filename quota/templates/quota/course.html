@@ -5,10 +5,16 @@
 <ul>
     <li>Course Name: {{ course.subject }}</li>
     <li>Course ID: {{ course.subject_id }}</li>
-    <li>เหลือที่: {{ course.seat }}</li>
+    <li>Semester: {{ course.semester}}</li>
+    <li>Year: {{ course.year }}</li>
+    {% if course.available %}
+        <li>เหลือที่: {{ course.seat }}</li>
+    {% else %}
+        <li>Not available</li>
+    {% endif %}
 </ul>
 
 <br>
-<a href="{% url 'index' %}">Back to Flight List</a>
+<a href="{% url 'indexq' %}">Back to Flight List</a>
 
 {% endblock %}
