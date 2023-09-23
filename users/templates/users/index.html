@@ -10,19 +10,39 @@
     <li>Id: {{ student.student_id}}</li>
 </ul>
 
-<div>test</div>
+<div>Your course</div>
 {% for c in course %}
 <li>course {{ c }}:</li>
 {% empty %}
-<li>No flights</li>
+<li>No course</li>
 {% endfor %}
-<div>test</div>
+<br>
+
+<div>Course available</div>
+{% for c in allcourse %}
+    {% if c.available %}
+        <li>course {{ c }}:</li>    
+    {% endif %}
+    {% empty %}
+    <li>No course</li>
+{% endfor %}
+<br>
+
+<div>All course</div>
+{% for c in allcourse %}
+    <li>course {{ c }}:</li>
+    {% empty %}
+    <li>No course</li>
+{% endfor %}
+
 <h2>Add Course</h2>
 <form action="{% url 'add' %}" method="POST">
     {% csrf_token %}
     <select name="course">
         {% for course in not_add %}
-        <option value="{{ course.subject_id }}">{{ course }}</option>
+            {% if course.available %}
+                <option value="{{ course.subject_id }}">{{ course }}</option>
+            {% endif %}
         {% endfor %}
     </select>
     <input type="submit" value="Add">
@@ -30,6 +50,7 @@
 {% if message %}
 <p>{{ message }}</p>
 {% endif %}
+
 <h2>Remove Course</h2>
 <form action="{% url 'remove' %}" method="POST">
     {% csrf_token %}
@@ -41,7 +62,7 @@
     <input type="submit" value="Remove">
 </form>
 
-
+<br>
 <a href="{% url 'logout' %}">Log Out</a>
 
 {% endblock %}
