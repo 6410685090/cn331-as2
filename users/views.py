@@ -68,21 +68,36 @@ def logout_view(request):
     logout(request)
     return render(request, 'users/login.html', {
         'message': 'Logged out'
+        
     })
 
 def add(request):
-    user = request.user
     if request.method == "POST":
-        student = Student.objects.get(user=user)
         course = Course.objects.get(subject_id = request.POST["course"])
-        course.student.add(student)
-        return HttpResponseRedirect(reverse('user'))
-    
+        user = request.user
+        if course.seat == 0:
+            student = Student.objects.get(user=user)
+            return render(request, "users/index.html",{
+                'message': "There are no seats available",
+                'student': student,
+                'course': student.cstudent.all(),
+                'add': Course.objects.filter(student=student).all(),
+                'not_add': Course.objects.exclude(student=student).all(),
+            })
+        else:
+            student = Student.objects.get(user=user)
+            course.student.add(student)
+            course.seat -= 1
+            course.save()
+            return HttpResponseRedirect(reverse('user'))
+            
 def remove(request):
-    user = request.user
     if request.method == "POST":
+        user = request.user
         student = Student.objects.get(user=user)
         course = Course.objects.get(subject_id = request.POST["course"])
         course.student.remove(student)
+        course.seat += 1
+        course.save()
         return HttpResponseRedirect(reverse('user'))
     
