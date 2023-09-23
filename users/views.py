@@ -14,7 +14,8 @@ def index(request):
         'student': student,
         'course': student.cstudent.all(),
         'add': Course.objects.filter(student=student).all(),
-        'not_add': Course.objects.exclude(student=student).all()
+        'not_add': Course.objects.exclude(student=student).all(),
+        'allcourse' : Course.objects.all,
     })
 
 def mainpage(request):
@@ -28,12 +29,7 @@ def login_view(request):
         if user is not None:
             student = Student.objects.get(user=user)
             login(request, user)
-            return render(request, 'users/index.html', {
-                'student': student,
-                'course': student.cstudent.all(),
-                'add': Course.objects.filter(student=student).all(),
-                'not_add': Course.objects.exclude(student=student).all()
-            })
+            return HttpResponseRedirect(reverse('user'))
         else:
             return render(request, 'users/login.html', {
                 'message': 'Invalid credentials.'
@@ -78,6 +74,7 @@ def add(request):
         if course.seat == 0:
             student = Student.objects.get(user=user)
             return render(request, "users/index.html",{
+                'allcourse' : Course.objects.all,
                 'message': "There are no seats available",
                 'student': student,
                 'course': student.cstudent.all(),
@@ -88,6 +85,8 @@ def add(request):
             student = Student.objects.get(user=user)
             course.student.add(student)
             course.seat -= 1
+            if course.seat == 0:
+                course.available = False
             course.save()
             return HttpResponseRedirect(reverse('user'))
             
@@ -97,6 +96,8 @@ def remove(request):
         student = Student.objects.get(user=user)
         course = Course.objects.get(subject_id = request.POST["course"])
         course.student.remove(student)
+        if course.seat == 0:
+            course.available = True
         course.seat += 1
         course.save()
         return HttpResponseRedirect(reverse('user'))
