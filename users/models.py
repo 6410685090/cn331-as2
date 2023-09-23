@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
    
+class Student(models.Model):
+    user = models.OneToOneField(User , on_delete=models.CASCADE)
+    name = models.CharField(max_length=64,default="-")
+    lastname = models.CharField(max_length=64,default="-")
+    student_id = models.CharField(max_length=10,default="-")
+
+    def __str__(self):
+        return f"{self.name}: {self.lastname}"
+    
 class Course(models.Model):
     subject = models.CharField(max_length=64)
     subject_id = models.CharField(max_length=5)
@@ -9,19 +18,8 @@ class Course(models.Model):
     year = models.CharField(max_length=4)
     seat = models.IntegerField()
     available = models.BooleanField(default=True)
+    student = models.ManyToManyField(Student, blank=True, related_name="cstudent")
 
     def __str__(self):
         return f"{self.subject_id}: {self.seat} seatleft"
-
-class Student(models.Model):
-    user = models.OneToOneField(User , on_delete=models.CASCADE)
-    courses = models.ManyToManyField(Course, blank=True, related_name="student")
-
-    def name(self):
-        return f"{self.user.first_name}"
-    def lastname(self):
-        return f"{self.user.last_name}"
-    def studentid(self):
-        return f"{self.user.username}"
-    def __str__(self):
-        return f"{self.user.first_name}: {self.user.last_name}"
+    

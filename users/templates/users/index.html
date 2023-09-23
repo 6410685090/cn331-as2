@@ -7,8 +7,37 @@
     <li>Email: {{ user.email }}</li>
     <li>name: {{ student.name }}</li>
     <li>lastname: {{ student.lastname }}</li>
-    <li>Id: {{ student.studentid}}</li>
+    <li>Id: {{ student.student_id}}</li>
 </ul>
+
+<div>test</div>
+{% for c in course %}
+<li>course {{ c }}:</li>
+{% empty %}
+<li>No flights</li>
+{% endfor %}
+<div>test</div>
+<h2>Add Course</h2>
+<form action="{% url 'add' %}" method="POST">
+    {% csrf_token %}
+    <select name="course">
+        {% for course in not_add %}
+        <option value="{{ course.subject_id }}">{{ course }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add">
+</form>
+
+<h2>Remove Course</h2>
+<form action="{% url 'remove' %}" method="POST">
+    {% csrf_token %}
+    <select name="course">
+        {% for course in add %}
+        <option value="{{ course.subject_id }}">{{ course }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Remove">
+</form>
 
 
 <a href="{% url 'logout' %}">Log Out</a>

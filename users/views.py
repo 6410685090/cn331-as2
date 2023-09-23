@@ -4,12 +4,17 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Student
+from .models import Student , Course
 # Create your views here.
 
 def index(request):
+    user = request.user
+    student = Student.objects.get(user=user)
     return render(request, "users/index.html", {
-        
+        'student': student,
+        'course': student.cstudent.all(),
+        'add': Course.objects.filter(student=student).all(),
+        'not_add': Course.objects.exclude(student=student).all()
     })
 
 def mainpage(request):
@@ -25,7 +30,9 @@ def login_view(request):
             login(request, user)
             return render(request, 'users/index.html', {
                 'student': student,
-                'user' : user
+                'course': student.cstudent.all(),
+                'add': Course.objects.filter(student=student).all(),
+                'not_add': Course.objects.exclude(student=student).all()
             })
         else:
             return render(request, 'users/login.html', {
@@ -47,7 +54,7 @@ def signup(request):
                 email=email,password=password)
             user.first_name = fname
             user.last_name = lname
-            student = Student(user=user)
+            student = Student(user=user,name =fname,lastname=lname,student_id =username)
             student.save()
             user.save()
             return HttpResponseRedirect(reverse('signup'))
@@ -63,3 +70,19 @@ def logout_view(request):
         'message': 'Logged out'
     })
 
+def add(request):
+    user = request.user
+    if request.method == "POST":
+        student = Student.objects.get(user=user)
+        course = Course.objects.get(subject_id = request.POST["course"])
+        course.student.add(student)
+        return HttpResponseRedirect(reverse('user'))
+    
+def remove(request):
+    user = request.user
+    if request.method == "POST":
+        student = Student.objects.get(user=user)
+        course = Course.objects.get(subject_id = request.POST["course"])
+        course.student.remove(student)
+        return HttpResponseRedirect(reverse('user'))
+    
