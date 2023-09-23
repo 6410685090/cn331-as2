@@ -27,7 +27,9 @@
     </select>
     <input type="submit" value="Add">
 </form>
-
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
 <h2>Remove Course</h2>
 <form action="{% url 'remove' %}" method="POST">
     {% csrf_token %}
