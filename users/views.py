@@ -18,9 +18,6 @@ def index(request):
         'allcourse' : Course.objects.all,
     })
 
-def mainpage(request):
-    return render(request, "users/mainpage.html")
-
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -68,37 +65,55 @@ def logout_view(request):
     })
 
 def add(request):
-    if request.method == "POST":
-        course = Course.objects.get(subject_id = request.POST["course"])
-        user = request.user
-        if course.seat == 0:
-            student = Student.objects.get(user=user)
-            return render(request, "users/index.html",{
-                'allcourse' : Course.objects.all,
-                'message': "There are no seats available",
-                'student': student,
-                'course': student.cstudent.all(),
-                'add': Course.objects.filter(student=student).all(),
-                'not_add': Course.objects.exclude(student=student).all(),
-            })
-        else:
-            student = Student.objects.get(user=user)
-            course.student.add(student)
-            course.seat -= 1
+    user = request.user
+    student = Student.objects.get(user=user)
+    if "course" in request.POST:       
+        if request.method == "POST":
+            course = Course.objects.get(subject_id = request.POST["course"])
             if course.seat == 0:
-                course.available = False
+                return render(request, "users/index.html",{
+                    'allcourse' : Course.objects.all,
+                    'message': "There are no seats available",
+                    'student': student,
+                    'course': student.cstudent.all(),
+                    'add': Course.objects.filter(student=student).all(),
+                    'not_add': Course.objects.exclude(student=student).all(),
+                })
+            else:
+                course.student.add(student)
+                course.seat -= 1
+                if course.seat == 0:
+                    course.available = False
+                course.save()
+                return HttpResponseRedirect(reverse('user'))
+    else:
+        return render(request, "users/index.html",{
+                    'allcourse' : Course.objects.all,
+                    'messageadd': "No course available",
+                    'student': student,
+                    'course': student.cstudent.all(),
+                    'add': Course.objects.filter(student=student).all(),
+                    'not_add': Course.objects.exclude(student=student).all(),
+                })
+    
+def remove(request):
+    user = request.user
+    student = Student.objects.get(user=user)
+    if "course" in request.POST:
+        if request.method == "POST":
+            course = Course.objects.get(subject_id = request.POST["course"])
+            course.student.remove(student)
+            if course.seat == 0:
+                course.available = True
+            course.seat += 1
             course.save()
             return HttpResponseRedirect(reverse('user'))
-            
-def remove(request):
-    if request.method == "POST":
-        user = request.user
-        student = Student.objects.get(user=user)
-        course = Course.objects.get(subject_id = request.POST["course"])
-        course.student.remove(student)
-        if course.seat == 0:
-            course.available = True
-        course.seat += 1
-        course.save()
-        return HttpResponseRedirect(reverse('user'))
-    
+    else:
+        return render(request, "users/index.html",{
+                    'allcourse' : Course.objects.all,
+                    'messageremove': "No course available",
+                    'student': student,
+                    'course': student.cstudent.all(),
+                    'add': Course.objects.filter(student=student).all(),
+                    'not_add': Course.objects.exclude(student=student).all(),
+                })
