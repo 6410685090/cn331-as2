@@ -3,37 +3,44 @@
 <h1>You are {{ student }}</h1>
 <h1>Welcome, {{ user.first_name }}</h1>
 <ul>
-    <li>Username: {{ user.username }}</li>
-    <li>Email: {{ user.email }}</li>
-    <li>name: {{ student.name }}</li>
-    <li>lastname: {{ student.lastname }}</li>
+    <li>First_ame: {{ student.name }}</li>
+    <li>Lastname: {{ student.lastname }}</li>
     <li>Id: {{ student.student_id}}</li>
+    <li>Email: {{ user.email }}</li>
 </ul>
 
-<div>Your course</div>
-{% for c in course %}
-<li>course {{ c }}:</li>
-{% empty %}
-<li>No course</li>
-{% endfor %}
-<br>
-
-<div>Course available</div>
-{% for c in allcourse %}
-    {% if c.available %}
-        <li>course {{ c }}:</li>    
-    {% endif %}
+<ul>
+    <div>Your course</div>
+    {% for c in course %}
+    <li>{{ c }}</li>
     {% empty %}
     <li>No course</li>
-{% endfor %}
+    {% endfor %}
+</ul>
+
 <br>
 
-<div>All course</div>
-{% for c in allcourse %}
-    <li>course {{ c }}:</li>
-    {% empty %}
-    <li>No course</li>
-{% endfor %}
+<ul>
+    <div>Course available</div>
+    {% for c in allcourse %}
+        {% if c.available %}
+            <li>{{ c }}</li>    
+        {% endif %}
+        {% empty %}
+        <li>No course</li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<ul>
+    <div>All course</div>
+    {% for c in allcourse %}
+        <li>{{ c }}</li>
+        {% empty %}
+        <li>No course</li>
+    {% endfor %}
+</ul>
 
 <h2>Add Course</h2>
 <form action="{% url 'add' %}" method="POST">
@@ -47,8 +54,8 @@
     </select>
     <input type="submit" value="Add">
 </form>
-{% if message %}
-<p>{{ message }}</p>
+{% if messageadd %}
+<p>{{ messageadd }}</p>
 {% endif %}
 
 <h2>Remove Course</h2>
@@ -61,8 +68,11 @@
     </select>
     <input type="submit" value="Remove">
 </form>
-
+{% if messageremove %}
+<p>{{ messageremove }}</p>
+{% endif %}
 <br>
-<a href="{% url 'logout' %}">Log Out</a>
-
+<div>
+    <a href="{% url 'logout' %}" style="font-size: 50px;">Log Out</a>
+</div>
 {% endblock %}

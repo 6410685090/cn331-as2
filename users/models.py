@@ -9,7 +9,7 @@ class Student(models.Model):
     student_id = models.CharField(max_length=10,default="-")
 
     def __str__(self):
-        return f"{self.name}: {self.lastname}"
+        return f"{self.name} {self.lastname}"
     
 class Course(models.Model):
     subject = models.CharField(max_length=64)
@@ -21,5 +21,5 @@ class Course(models.Model):
     student = models.ManyToManyField(Student, blank=True, related_name="cstudent")
 
     def __str__(self):
-        return f"{self.subject_id}: {self.seat} seatleft"
+        return f"{self.subject_id} : {self.seat} Seatleft"
     
