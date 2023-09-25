@@ -9,6 +9,8 @@ from .models import Student , Course
 
 def index(request):
     user = request.user
+    if user.is_staff:
+        return HttpResponseRedirect(reverse('signup'))
     student = Student.objects.get(user=user)
     return render(request, "users/index.html", {
         'student': student,
