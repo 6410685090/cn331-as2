@@ -21,5 +21,10 @@ class Course(models.Model):
     student = models.ManyToManyField(Student, blank=True, related_name="cstudent")
 
     def __str__(self):
-        return f"{self.subject_id} : {self.seat} Seatleft"
+        if self.seat == 0:
+            return f"{self.subject_id} : Full"
+        elif not self.available:
+            return f"{self.subject_id} : not available"
+        else:
+            return f"{self.subject_id} : {self.seat} Seatleft"
     
