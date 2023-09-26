@@ -3,7 +3,7 @@
 <h1>You are {{ student }}</h1>
 <h1>Welcome, {{ user.first_name }}</h1>
 <ul>
-    <li>First_ame: {{ student.name }}</li>
+    <li>Firstname: {{ student.name }}</li>
     <li>Lastname: {{ student.lastname }}</li>
     <li>Id: {{ student.student_id}}</li>
     <li>Email: {{ user.email }}</li>
@@ -24,7 +24,7 @@
     <div>Course available</div>
     {% for c in allcourse %}
         {% if c.available %}
-            <li>{{ c }}</li>    
+            <li><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></li>    
         {% endif %}
         {% empty %}
         <li>No course</li>
