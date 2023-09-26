@@ -9,6 +9,8 @@ from .models import Student , Course
 
 def index(request):
     user = request.user
+    if not user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
     if user.is_staff:
         return HttpResponseRedirect(reverse('signup'))
     student = Student.objects.get(user=user)
@@ -21,6 +23,8 @@ def index(request):
     })
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('user'))
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -119,3 +123,9 @@ def remove(request):
                     'add': Course.objects.filter(student=student).all(),
                     'not_add': Course.objects.exclude(student=student).all(),
                 })
+
+def courseinfo(request,courseid):
+    course = Course.objects.get(subject_id=courseid)
+    return render(request, "users/info.html", {
+        'course': course,
+    })
