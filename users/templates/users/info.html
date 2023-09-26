@@ -1,0 +1,24 @@
+{% extends 'users/layout.html' %}
+{% block body %}
+<h1>Course : {{ course.subject }}</h1>
+
+<ul>
+    <li>Name: {{ course.subject }}</li>
+    <li>Course ID: {{ course.subject_id }}</li>
+    <li>Year: {{ course.year}}</li>
+    <li>Seat: {{ course.seat }}</li>
+    <li>Status: {% if course.available %}
+                    Open
+                {% else %}
+                    Close
+                {% endif %}
+    </li>
+</ul>
+
+
+<br>
+
+<div>
+    <a href="{% url 'logout' %}" style="font-size: 50px;">Log Out</a>
+</div>
+{% endblock %}
