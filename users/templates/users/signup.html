@@ -5,8 +5,8 @@
     <form action="{% url 'signup' %}" class="sub-form" style="min-height: 800px;" method="post">
         {% csrf_token %}
         <div class="upper-form">
-            <br><br>
-            <h1 align = center>Create account</h1>
+            <br>
+            <h1>Create account</h1>
             <br>
             <label>Username</label>
             <input type="text" name="username" required><br>
@@ -21,9 +21,10 @@
             <label>Last name</label>
             <input type="text" name="lname" required>
             {% if message %}
-            <p style="padding-left: 10px; padding-top: 10px;">{{ message }}</p>
+            <p>{{ message }}</p>
             {% endif %}
-            <div class="btn" style="padding-top: 15px;">
+            <br>
+            <div class="btn">
                 <button type="submit">Sign Up</button>
             </div>
             <div class="bottom-form">

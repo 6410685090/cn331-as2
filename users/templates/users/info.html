@@ -5,16 +5,16 @@
     <form class="sub-form" style="min-height: 800px;">
         {% csrf_token %}
         <div class="upper-form">
-            <br><br>
-            <h1 align = center>{{ course.subject_id }} {{ course.subject }}</h1>
             <br>
-            <b style="padding-left: 50px;">Course information</b>
-            <p style="padding-left: 80px;">Subject : {{ course.subject }}</p>
-            <p style="padding-left: 80px;">Subject id : {{ course.subject_id }}</p>
-            <p style="padding-left: 80px;">Semester : {{ course.semester }}</p>
-            <p style="padding-left: 80px;">Year : {{ course.year}}</p>
-            <p style="padding-left: 80px;">Seat : {{ course.seat }}</p>
-            <p style="padding-left: 80px;">Status : {% if course.available %}
+            <h1>{{ course.subject_id }} {{ course.subject }}</h1>
+            <br>
+            <b>Course information</b>
+            <p>Subject : {{ course.subject }}</p>
+            <p>Subject id : {{ course.subject_id }}</p>
+            <p>Semester : {{ course.semester }}</p>
+            <p>Year : {{ course.year}}</p>
+            <p>Seat : {{ course.seat }}</p>
+            <p>Status : {% if course.available %}
                 Open
                 {% else %}
                 Close
