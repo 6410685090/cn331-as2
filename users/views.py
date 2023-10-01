@@ -30,6 +30,8 @@ def login_view(request):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
+            if user.is_staff:
+                return HttpResponseRedirect(reverse('signup'))
             student = Student.objects.get(user=user)
             login(request, user)
             return HttpResponseRedirect(reverse('user'))

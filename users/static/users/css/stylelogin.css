@@ -97,6 +97,7 @@ body{
 .sub-form{
     display: flex;
     flex-direction: column;
+    /* text-align: center; */
     align-items: center;
     width: 25vw;
     height: 55vh;
@@ -106,4 +107,3 @@ body{
     background-color: white;
     min-width: 400px;
 }
-

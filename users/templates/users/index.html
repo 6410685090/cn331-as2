@@ -1,78 +1,85 @@
 {% extends 'users/layout.html' %}
 {% block body %}
-<h1>You are {{ student }}</h1>
-<h1>Welcome, {{ user.first_name }}</h1>
-<ul>
-    <li>Firstname: {{ student.name }}</li>
-    <li>Lastname: {{ student.lastname }}</li>
-    <li>Id: {{ student.student_id}}</li>
-    <li>Email: {{ user.email }}</li>
-</ul>
+<link rel="stylesheet" href="../../static/users/css/stylelogin.css">
+<div class="form">
+    <form class="sub-form" style="min-height: 800px;">
+        {% csrf_token %}
+        <div class="upper-form">
+            <br><br>
+            <h1>Welcome, {{ student }}</h1>
+            <!-- <h1>Welcome, {{ user.first_name }}</h1> -->
+            <br>
 
-<ul>
-    <div>Your course</div>
-    {% for c in course %}
-    <li>{{ c }}</li>
-    {% empty %}
-    <li>No course</li>
-    {% endfor %}
-</ul>
+            <div><b>Your information</b></div>
+            <p>Username : {{ student.student_id}}</p>
+            <p>First name : {{ student.name }}</p>
+            <p>Last name : {{ student.lastname }}</p>
+            <p>Email address : {{ user.email }}</p>
+            <br>
 
-<br>
+            <div><b>Your course</b></div>
+            {% for c in course %}
+            <p>{{ c }}</p>
+            {% empty %}
+            <p>No course</p>
+            {% endfor %}
+            <br>
 
-<ul>
-    <div>Course available</div>
-    {% for c in allcourse %}
-        {% if c.available %}
-            <li><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></li>    
-        {% endif %}
-        {% empty %}
-        <li>No course</li>
-    {% endfor %}
-</ul>
-
-<br>
-
-<ul>
-    <div>All course</div>
-    {% for c in allcourse %}
-        <li>{{ c }}</li>
-        {% empty %}
-        <li>No course</li>
-    {% endfor %}
-</ul>
-
-<h2>Add Course</h2>
-<form action="{% url 'add' %}" method="POST">
-    {% csrf_token %}
-    <select name="course">
-        {% for course in not_add %}
-            {% if course.available %}
-                <option value="{{ course.subject_id }}">{{ course }}</option>
+            <div><b>Course available</b></div>
+            {% for c in allcourse %}
+            {% if c.available %}
+            <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
             {% endif %}
-        {% endfor %}
-    </select>
-    <input type="submit" value="Add">
-</form>
-{% if messageadd %}
-<p>{{ messageadd }}</p>
-{% endif %}
+            {% empty %}
+            <p>No course</p>
+            {% endfor %}
+            <br>
 
-<h2>Remove Course</h2>
-<form action="{% url 'remove' %}" method="POST">
-    {% csrf_token %}
-    <select name="course">
-        {% for course in add %}
-        <option value="{{ course.subject_id }}">{{ course }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Remove">
-</form>
-{% if messageremove %}
-<p>{{ messageremove }}</p>
-{% endif %}
-<br>
-<div>
-    <a href="{% url 'logout' %}" style="font-size: 50px;">Log Out</a>
+            <div><b>All course</b></div>
+            {% for c in allcourse %}
+            <p>{{ c }}</p>
+            {% empty %}
+            <p>No course</p>
+            {% endfor %}
+            <br>
+
+            <b>Add Course</b>
+            <form action="{% url 'add' %}" method="POST">
+                {% csrf_token %}
+                <select name="course">
+                    {% for course in not_add %}
+                        {% if course.available %}
+                            <option value="{{ course.subject_id }}">{{ course }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Add">
+            </form>
+            {% if messageadd %}
+            <p>{{ messageadd }}</p>
+            {% endif %}
+            <br>
+
+            <b>Remove Course</b>
+            <form action="{% url 'remove' %}" method="POST">
+                {% csrf_token %}
+                <select name="course">
+                    {% for course in add %}
+                    <option value="{{ course.subject_id }}">{{ course }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Remove">
+            </form>
+            {% if messageremove %}
+            <p>{{ messageremove }}</p>
+            {% endif %}
+            <br>
+
+            <div class="bottom-form">
+                <a href="{% url 'logout' %}" style="font-size: 15px;">Log Out</a>
+            </div>
+        </div>
+    </form>
 </div>
+
 {% endblock %}
