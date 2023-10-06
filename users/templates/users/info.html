@@ -1,26 +1,23 @@
 {% extends 'users/layout.html' %}
 {% block body %}
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
-<div class="form">
-    <form class="sub-form" style="min-height: 800px;">
-        {% csrf_token %}
-        <div class="upper-form">
-            <br>
-            <h1>{{ course.subject_id }} {{ course.subject }}</h1>
-            <br>
-            <b>Course information</b>
-            <p>Subject : {{ course.subject }}</p>
-            <p>Subject id : {{ course.subject_id }}</p>
-            <p>Semester : {{ course.semester }}</p>
-            <p>Year : {{ course.year}}</p>
-            <p>Seat : {{ course.seat }}</p>
-            <p>Status : {% if course.available %}
-                Open
-                {% else %}
-                Close
-                {% endif %}
-            </p>
-        </div>
+<div class="wrapper">
+    <form>
+        <h2>{{ course.subject_id }} {{ course.subject }}</h2>
+        <!-- <h4>Course information</h4> -->
+        <br>
+        <p><b>Subject :</b> {{ course.subject }}</p>
+        <p><b>Subject id :</b> {{ course.subject_id }}</p>
+        <p><b>Semester :</b> {{ course.semester }}</p>
+        <p><b>Year :</b> {{ course.year}}</p>
+        <p><b>Seat :</b> {{ course.seat }}</p>
+        <p><b>Status :</b>
+            {% if course.available %}
+            Open
+            {% else %}
+            Close
+            {% endif %}
+        </p>
     </form>
 </div>
 {% endblock %}

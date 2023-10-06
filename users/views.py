@@ -69,7 +69,6 @@ def logout_view(request):
     logout(request)
     return render(request, 'users/login.html', {
         'message': 'Logged out'
-        
     })
 
 def add(request):
@@ -131,3 +130,11 @@ def courseinfo(request,courseid):
     return render(request, "users/info.html", {
         'course': course,
     })
+
+def funcName(request):
+    user = request.user
+    if not user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    if user.is_staff:
+        return HttpResponseRedirect(reverse('signup'))
+    return render(request, "users/mycourse.html")

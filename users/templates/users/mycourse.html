@@ -1,0 +1,63 @@
+{% extends 'users/layout.html' %}
+{% block body %}
+<link rel="stylesheet" href="../../static/users/css/stylelogin.css">
+<div class="wrapper">
+    <b>Course available</b>
+    {% for c in allcourse %}
+    {% if c.available %}
+    <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
+    {% endif %}
+    {% empty %}
+    <p>No course</p>
+    {% endfor %}
+    <br>
+
+    <b>All course</b>
+    {% for c in allcourse %}
+    <p>{{ c }}</p>
+    {% empty %}
+    <p>No course</p>
+    {% endfor %}
+    <br>
+
+    <b>Add Course</b>
+    <form action="{% url 'add' %}" method="POST">
+        {% csrf_token %}
+        <select name="course">
+            {% for course in not_add %}
+            {% if course.available %}
+            <option value="{{ course.subject_id }}">{{ course }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <div class="field">
+            <input type="submit" value="Add">
+        </div>
+    </form>
+    {% if messageadd %}
+    <p>{{ messageadd }}</p>
+    {% endif %}
+    <br>
+
+    <b>Remove Course</b>
+    <form action="{% url 'remove' %}" method="POST">
+        {% csrf_token %}
+        <select name="course">
+            {% for course in add %}
+            <option value="{{ course.subject_id }}">{{ course }}</option>
+            {% endfor %}
+        </select>
+        <div class="field">
+            <input type="submit" value="Remove">
+        </div>
+    </form>
+    {% if messageremove %}
+    <p>{{ messageremove }}</p>
+    {% endif %}
+    <br>
+    
+    <div class="topnav">
+        <a href="/">Home</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,35 +1,46 @@
 {% extends 'users/layout.html' %}
 {% block body %}
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
-<div class="form">
-    <form action="{% url 'signup' %}" class="sub-form" style="min-height: 800px;" method="post">
+<div class="wrapper">
+    <div class="title">
+        Create account
+    </div>
+    <form action="{% url 'signup' %}" method="post">
         {% csrf_token %}
-        <div class="upper-form">
-            <br>
-            <h1>Create account</h1>
-            <br>
+        <div class="field">
+            <input type="text" name="username" required>
             <label>Username</label>
-            <input type="text" name="username" required><br>
+        </div>
+        <div class="field">
+            <input type="password" name="password" required>
             <label>Password</label>
-            <input type="password" name="password" required><br>
+        </div>
+        <div class="field">
+            <input type="password" name="cpassword" required>
             <label>Confirm Password</label>
-            <input type="password" name="cpassword" required><br>
-            <label>Email</label><br>
-            <input type="email" name="email" required><br>
+        </div>
+        <div class="field">
+            <input type="email" name="email" required>
+            <label>Email</label>
+        </div>
+        <div class="field">
+            <input type="text" name="fname" required>
             <label>First name</label>
-            <input type="text" name="fname" required><br>
-            <label>Last name</label>
+        </div>
+        <div class="field">
             <input type="text" name="lname" required>
-            {% if message %}
-            <p>{{ message }}</p>
-            {% endif %}
-            <br>
-            <div class="btn">
-                <button type="submit">Sign Up</button>
-            </div>
-            <div class="bottom-form">
-                <a href="{% url 'logout' %}" class="signup">Log Out</a>
-            </div>
+            <label>Last name</label>
+        </div>
+        <br>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+        <div class="field">
+            <input type="submit" value="Sign Up">
+        </div>
+        <div class="signup-link">
+            <a href="{% url 'login' %}">Log in</a>
+        </div>
     </form>
 </div>
 {% endblock %}

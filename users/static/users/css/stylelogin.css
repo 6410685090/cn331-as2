@@ -1,115 +1,190 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-.form{
-    display: flex;
-    justify-content: center;
-    padding-top: 3rem;
-}
-
-label {
-    padding-left: 16px;
-    opacity: 0.75;
-}
-
-h2 {
-    margin: 1.5rem 0 2rem 0;
-    text-align: center;
-    padding-top: 20px;
-}
-
-input {
-    display: flex;
-    border-radius: 50px;
-    border-style: none;
-    margin-top: 8px;
-    padding: 12px 24px;
-    width: 250px;
-    background-color: #EAEEED;
-    text-align: center;
-    align-items: center;
-}
-
-input:focus {
-    opacity: 0.7;
-}
-
-button {
-    padding: 12px 48px;
-    border-radius: 50px;
-    color: white;
-    margin-top: 1rem;
-    cursor: pointer;
-    outline: none;
-    border-width: 0;
-    background-color: #1A1B27;
-    font-weight: 600;
+html,
+body {
+    display: grid;
+    height: 100%;
     width: 100%;
+    place-items: center;
+    background: #f2f2f2;
+    /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
 }
 
-button:hover {
-    opacity: 0.8;
+::selection {
+    background: #4158d0;
+    color: #fff;
 }
 
-.bottom-form{
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
+.wrapper {
+    width: 800px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-.backtomain{
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    text-decoration: none;
-    cursor: pointer;
-    color: #1693af;
-}
-
-.backtomain:hover{
-    opacity: 0.8;
-}
-
-
-.signup {
-    padding-left: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    color: #21D4FD;
-}
-
-.signup:hover{
-    opacity: 0.8;
-}
-
-body{
-    font-family: 'Nunito' , sans-serif;
-    background-image: linear-gradient(45deg, #5ce1ff 0%, #db8dff 100%);
-    background-color: white;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.sub-form{
-    display: flex;
-    flex-direction: column;
+.wrapper .title {
+    font-size: 35px;
+    font-weight: 600;
     text-align: center;
+    line-height: 100px;
+    color: #fff;
+    user-select: none;
+    border-radius: 15px 15px 0 0;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+
+.wrapper form {
+    padding: 10px 30px 50px 30px;
+}
+
+.wrapper form .field {
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+}
+
+.wrapper form .field input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 17px;
+    padding-left: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.wrapper form .field input:focus,
+form .field input:valid {
+    border-color: #4158d0;
+}
+
+.wrapper form .field label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    color: #999999;
+    font-weight: 400;
+    font-size: 17px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+form .field input:focus~label,
+form .field input:valid~label {
+    top: 0%;
+    font-size: 16px;
+    color: #4158d0;
+    background: #fff;
+    transform: translateY(-50%);
+}
+
+form .content {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
     align-items: center;
-    width: 25vw;
-    height: 55vh;
-    border-radius: 12px;
-    box-shadow: rgba(50, 50, 93, 0,25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    justify-content: space-around;
+}
+
+form .content .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form .content input {
+    width: 15px;
+    height: 15px;
+    background: red;
+}
+
+form .content label {
+    color: #262626;
+    user-select: none;
+    padding-left: 5px;
+}
+
+form .content .pass-link {
+    color: "";
+}
+
+form .field input[type="submit"] {
+    color: #fff;
+    border: none;
+    padding-left: 0;
+    margin-top: -10px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    transition: all 0.3s ease;
+}
+
+form .field input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+form .signup-link {
+    color: #262626;
+    margin-top: 20px;
+    text-align: center;
+}
+
+form .pass-link a,
+form .signup-link a {
+    color: #4158d0;
+    text-decoration: none;
+}
+
+form .pass-link a:hover,
+form .signup-link a:hover {
+    text-decoration: underline;
+}
+
+.topnav {
+    overflow: hidden;
+    font-size: 15px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    user-select: none;
+    /* border-radius: 15px 15px 0 0; */
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: center;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    text-align: center;
+    /*     user-select: none;
+    border-radius: 15px 15px 0 0;
+    background: linear-gradient(-135deg, #c850c0, #4158d0); */
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
     background-color: white;
-    min-width: 600px;
-    /* style="padding-left: 15px;" */
-    /* style="font-size: 15px;" */
-    
+    color: black;
 }

@@ -11,4 +11,5 @@ urlpatterns = [
     path('signup', views.signup,name='signup'),
     path('add', views.add, name='add'),
     path('remove', views.remove, name='remove'),
+    path('mycourse', views.funcName, name='funcName'),
 ]
