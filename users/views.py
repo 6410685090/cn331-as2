@@ -41,7 +41,6 @@ def login_view(request):
             })
     return render(request, 'users/login.html')
 
-
 def signup(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -61,7 +60,7 @@ def signup(request):
             return HttpResponseRedirect(reverse('signup'))
         else:
             return render(request, 'users/signup.html', {
-        'message': 'Confirm Password Incorrect'
+        'message': 'Password not match.'
         })
     return render(request, "users/signup.html")
 
@@ -78,7 +77,7 @@ def add(request):
         if request.method == "POST":
             course = Course.objects.get(subject_id = request.POST["course"])
             if course.seat == 0:
-                return render(request, "users/index.html",{
+                return render(request, "users/mycourse.html",{
                     'allcourse' : Course.objects.all,
                     'message': "There are no seats available",
                     'student': student,
@@ -92,9 +91,9 @@ def add(request):
                 if course.seat == 0:
                     course.available = False
                 course.save()
-                return HttpResponseRedirect(reverse('user'))
+                return HttpResponseRedirect(reverse('mycourse'))
     else:
-        return render(request, "users/index.html",{
+        return render(request, "users/mycourse.html",{
                     'allcourse' : Course.objects.all,
                     'messageadd': "No course available",
                     'student': student,
@@ -114,9 +113,9 @@ def remove(request):
                 course.available = True
             course.seat += 1
             course.save()
-            return HttpResponseRedirect(reverse('user'))
+            return HttpResponseRedirect(reverse('mycourse'))
     else:
-        return render(request, "users/index.html",{
+        return render(request, "users/mycourse.html",{
                     'allcourse' : Course.objects.all,
                     'messageremove': "No course available",
                     'student': student,
@@ -131,10 +130,31 @@ def courseinfo(request,courseid):
         'course': course,
     })
 
-def funcName(request):
+def mycourse(request):
     user = request.user
     if not user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     if user.is_staff:
         return HttpResponseRedirect(reverse('signup'))
-    return render(request, "users/mycourse.html")
+    student = Student.objects.get(user=user)
+    return render(request, "users/mycourse.html",{
+        'student': student,
+        'course': student.cstudent.all(),
+        'add': Course.objects.filter(student=student).all(),
+        'not_add': Course.objects.exclude(student=student).all(),
+        'allcourse' : Course.objects.all,
+    })
+
+def changepassword(request):
+    if request.method == "POST":
+        if request.POST["newpass"] == request.POST["cnewpass"]:
+            user = User.objects.get(username = request.user)
+            user.set_password(request.POST["newpass"])
+            user.save()
+            logout_view(request)
+            return HttpResponseRedirect(reverse('login'))
+        else:
+            return render(request, 'users/chpass.html',{
+                'message' : 'Password not match.'
+            })
+    return render(request, 'users/chpass.html')
