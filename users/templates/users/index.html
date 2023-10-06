@@ -13,7 +13,6 @@
         <p>Last name : {{ student.lastname }}</p>
         <p>Email address : {{ user.email }}</p>
         <br>
-
         <b>Your course</b>
         {% for c in course %}
         <p>{{ c }}</p>
@@ -21,7 +20,6 @@
         <p>No course</p>
         {% endfor %}
     </form>
-
     <div class="topnav">
         <a href="{% url 'mycourse' %}">Add/Remove Course</a>
         <a href="{% url 'changepass' %}">Change Password</a>

@@ -158,7 +158,7 @@ form .signup-link a:hover {
     line-height: 50px;
     color: #fff;
     user-select: none;
-    /* border-radius: 15px 15px 0 0; */
+    border-radius: 0 0 15px 15px;
     background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 

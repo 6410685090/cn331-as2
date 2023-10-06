@@ -14,11 +14,11 @@
         <div class="field">
             <input type="password" name="password" required>
             <label>Password</label>
+            {% if message %}
+            <p>{{ message }}</p>
+            {% endif %}
         </div>
         <br>
-        {% if message %}
-        <p>{{ message }}</p>
-        {% endif %}
         <div class="field">
             <input type="submit" value="Log in">
         </div>

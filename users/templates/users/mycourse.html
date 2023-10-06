@@ -1,49 +1,57 @@
 {% extends 'users/layout.html' %}
 {% block body %}
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
-<div class="wrapper" >
-    <div style="padding-left: 3%;padding-right: 3%;padding-top: 3%;">
-    <b>Course available</b>
-    {% for c in allcourse %}
-    {% if c.available %}
-    <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
-    {% endif %}
-    {% empty %}
-    <p>No course</p>
-    {% endfor %}
-    <br>
-
-    <b>All course</b>
-    {% for c in allcourse %}
-    <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
-    {% empty %}
-    <p>No course</p>
-    {% endfor %}
-    <br>
-
-    <b>Add Course</b>
+<div class="wrapper">
+    <div class="title">
+        Course
+    </div>
+    <form>
+        <br>
+        <b>Your course</b>
+        {% for c in course %}
+        <p>{{ c }}</p>
+        {% empty %}
+        <p>No course</p>
+        {% endfor %}
+        <br>
+        <b>Course available</b>
+        {% for c in allcourse %}
+        {% if c.available %}
+        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
+        {% endif %}
+        {% empty %}
+        <p>No course</p>
+        {% endfor %}
+        <br>
+        <b>All course</b>
+        {% for c in allcourse %}
+        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
+        {% empty %}
+        <p>No course</p>
+        {% endfor %}
+        <br>
+    </form>
     <form action="{% url 'add' %}" method="POST">
+        <b>Add Course</b>
         {% csrf_token %}
         <select name="course">
             {% for course in not_add %}
             {% if course.available %}
-                {% if course.seat != 0 %}
-                <option value="{{ course.subject_id }}">{{ course }}</option>
-                {% endif %}
+            {% if course.seat != 0 %}
+            <option value="{{ course.subject_id }}">{{ course }}</option>
+            {% endif %}
             {% endif %}
             {% endfor %}
         </select>
         <div class="field">
             <input type="submit" value="Add">
         </div>
+        {% if messageadd %}
+        <p>{{ messageadd }}</p>
+        {% endif %}
     </form>
-    {% if messageadd %}
-    <p>{{ messageadd }}</p>
-    {% endif %}
-    <br>
-
-    <b>Remove Course</b>
     <form action="{% url 'remove' %}" method="POST">
+        <b>Remove Course</b>
         {% csrf_token %}
         <select name="course">
             {% for course in add %}
@@ -53,15 +61,12 @@
         <div class="field">
             <input type="submit" value="Remove">
         </div>
+        {% if messageremove %}
+        <p>{{ messageremove }}</p>
+        {% endif %}
     </form>
-    {% if messageremove %}
-    <p>{{ messageremove }}</p>
-    {% endif %}
-    <br>
-    </div>
     <div class="topnav">
         <a href="/">Home</a>
-    
     </div>
 </div>
 {% endblock %}
