@@ -14,7 +14,6 @@ body {
     width: 100%;
     place-items: center;
     background: #f2f2f2;
-    /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
 }
 
 ::selection {
@@ -163,7 +162,6 @@ form .signup-link a:hover {
     background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
     float: center;
     color: #f2f2f2;
@@ -172,18 +170,14 @@ form .signup-link a:hover {
     text-decoration: none;
     font-size: 17px;
     text-align: center;
-    /*     user-select: none;
-    border-radius: 15px 15px 0 0;
-    background: linear-gradient(-135deg, #c850c0, #4158d0); */
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
     background-color: #ddd;
     color: black;
 }
 
-/* Add a color to the active/current link */
+
 .topnav a.active {
     background-color: white;
     color: black;
