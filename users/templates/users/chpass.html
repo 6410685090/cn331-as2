@@ -3,25 +3,28 @@
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
 <div class="wrapper">
     <div class="title">
-        Log in
+        Change Password
     </div>
-    <form action="{% url 'login' %}" method="post">
+    <form action="{% url 'changepass' %}" method="post">
         {% csrf_token %}
         <div class="field">
-            <input type="text" name="username" required>
-            <label>Username</label>
+            <input type="password" name="newpass" required>
+            <label>Password</label>
         </div>
         <div class="field">
-            <input type="password" name="password" required>
-            <label>Password</label>
+            <input type="password" name="cnewpass" required>
+            <label>Confirm Password</label>
         </div>
         <br>
         {% if message %}
         <p>{{ message }}</p>
         {% endif %}
         <div class="field">
-            <input type="submit" value="Log in">
+            <input type="submit" value="Confirm">
         </div>
     </form>
+    <div class="topnav">
+        <a href="index">Home</a>
+    </div>
 </div>
 {% endblock %}

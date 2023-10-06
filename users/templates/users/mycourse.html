@@ -1,7 +1,8 @@
 {% extends 'users/layout.html' %}
 {% block body %}
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
-<div class="wrapper">
+<div class="wrapper" >
+    <div style="padding-left: 3%;padding-right: 3%;padding-top: 3%;">
     <b>Course available</b>
     {% for c in allcourse %}
     {% if c.available %}
@@ -14,7 +15,7 @@
 
     <b>All course</b>
     {% for c in allcourse %}
-    <p>{{ c }}</p>
+    <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
     {% empty %}
     <p>No course</p>
     {% endfor %}
@@ -26,7 +27,9 @@
         <select name="course">
             {% for course in not_add %}
             {% if course.available %}
-            <option value="{{ course.subject_id }}">{{ course }}</option>
+                {% if course.seat != 0 %}
+                <option value="{{ course.subject_id }}">{{ course }}</option>
+                {% endif %}
             {% endif %}
             {% endfor %}
         </select>
@@ -55,9 +58,10 @@
     <p>{{ messageremove }}</p>
     {% endif %}
     <br>
-    
+    </div>
     <div class="topnav">
         <a href="/">Home</a>
+    
     </div>
 </div>
 {% endblock %}
