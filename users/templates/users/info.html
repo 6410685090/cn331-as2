@@ -2,8 +2,11 @@
 {% block body %}
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
 <div class="wrapper">
+    <div class="title">
+        {{ course.subject_id }} {{ course.subject }}
+    </div>
     <form>
-        <h2>{{ course.subject_id }} {{ course.subject }}</h2>
+
         <br>
         <p><b>Subject :</b> {{ course.subject }}</p>
         <p><b>Subject id :</b> {{ course.subject_id }}</p>
