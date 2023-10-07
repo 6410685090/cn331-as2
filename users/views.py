@@ -9,6 +9,9 @@ from register.models import Student ,Course
 
 def login_view(request):
     if request.user.is_authenticated:
+        if request.user.is_staff:
+                return HttpResponseRedirect(reverse('signup'))
+        student = Student.objects.get(user=request.user)
         return render(request, "register/index.html", {
                 'student': student,
                 'course': student.cstudent.all(),
