@@ -18,7 +18,7 @@
         <br>
         <b>Your course</b>
         {% for c in course %}
-        <p>{{ c }}</p>
+        <p>{{ c.subject_id }} : {{ c.subject }}</p>
         {% empty %}
         <p>No course</p>
         {% endfor %}
