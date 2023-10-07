@@ -20,7 +20,9 @@
         <b>Course available</b>
             {% for c in allcourse %}
             {% if c.available %}
+            {% if c.seat != 0 %}
             <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }}</a></p>
+            {% endif %}
             {% endif %}
             {% empty %}
             <p>No course</p>
