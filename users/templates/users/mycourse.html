@@ -12,27 +12,27 @@
         <br>
         <b>Your course</b>
         {% for c in course %}
-        <p>{{ c.subject_id }} : {{ c.subject }}</p>
-        {% empty %}
-        <p>No course</p>
-        {% endfor %}
-        <br>
+            <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }}</a></p>
+            {% empty %}
+            <p>No course</p>
+            {% endfor %}
+            <br>
         <b>Course available</b>
-        {% for c in allcourse %}
-        {% if c.available %}
-        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }} </a></p>
-        {% endif %}
-        {% empty %}
-        <p>No course</p>
-        {% endfor %}
-        <br>
+            {% for c in allcourse %}
+            {% if c.available %}
+            <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }}</a></p>
+            {% endif %}
+            {% empty %}
+            <p>No course</p>
+            {% endfor %}
+            <br>
         <b>All course</b>
-        {% for c in allcourse %}
-        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }}</a></p>
-        {% empty %}
-        <p>No course</p>
-        {% endfor %}
-        <br>
+            {% for c in allcourse %}
+            <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }}</a></p>
+            {% empty %}
+            <p>No course</p>
+            {% endfor %}
+            <br>
     </form>
     <form action="{% url 'add' %}" method="POST">
         <b>Add Course</b>

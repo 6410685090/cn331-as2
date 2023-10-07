@@ -18,7 +18,7 @@
         <br>
         <b>Your course</b>
         {% for c in course %}
-        <p>{{ c.subject_id }} : {{ c.subject }}</p>
+        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }} </a></p>
         {% empty %}
         <p>No course</p>
         {% endfor %}
