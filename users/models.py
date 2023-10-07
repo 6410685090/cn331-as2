@@ -22,9 +22,9 @@ class Course(models.Model):
 
     def __str__(self):
         if self.seat == 0:
-            return f"{self.subject_id} : Full"
+            return f"{self.subject_id} : full"
         elif not self.available:
             return f"{self.subject_id} : not available"
         else:
-            return f"{self.subject_id} : {self.seat} Seatleft"
+            return f"{self.subject_id} : {self.seat} seatleft"
     
