@@ -20,7 +20,7 @@
         <b>Course available</b>
         {% for c in allcourse %}
         {% if c.available %}
-        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
+        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }} </a></p>
         {% endif %}
         {% empty %}
         <p>No course</p>
@@ -28,7 +28,7 @@
         <br>
         <b>All course</b>
         {% for c in allcourse %}
-        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c }}</a></p>
+        <p><a href="{% url 'courseinfo' c.subject_id %}">{{ c.subject_id }} : {{ c.subject }}</a></p>
         {% empty %}
         <p>No course</p>
         {% endfor %}
