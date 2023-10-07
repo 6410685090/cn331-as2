@@ -9,7 +9,6 @@
         {{ course.subject_id }} {{ course.subject }}
     </div>
     <form>
-
         <br>
         <p><b>Subject :</b> {{ course.subject }}</p>
         <p><b>Subject id :</b> {{ course.subject_id }}</p>
@@ -26,7 +25,7 @@
     </form>
     <div class="topnav">
         <a href="{% url 'mycourse' %}">Add/Remove Course</a>
-        <a href="/">Home</a>
+        <a href="{% url 'user' %}">Home</a>
     </div>
 </div>
 {% endblock %}
