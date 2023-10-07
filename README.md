@@ -2,7 +2,7 @@
 
 ## สมาชิก
 
-1. นายเจตพัฒน์ ตันเทียว 6410685090
+1. เจตพัฒน์ ตันเทียว 6410685090
 1. ชัญญานุช จำนงนิตย์ 6410615022 
 
 ## Clip การใช้งาน
@@ -50,5 +50,5 @@ https://drive.google.com/file/d/1JEfCesZYBXNEqys1ykYRHaLkjP8hJhDG/view?usp=shari
 
 ![](readmepic/changepass.png)
 
-หน้า changepass ใช้สำหรับเปลียนรหัสเมื่อได้รหัสจาก admin แล้ว
+หน้า changepass ใช้สำหรับเปลียนรหัส
 
