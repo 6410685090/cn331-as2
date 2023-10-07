@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="../../static/users/css/stylelogin.css">
 <div class="wrapper">
     <div class="title">
-        Create account
+        Add Student User
     </div>
     <form action="{% url 'signup' %}" method="post">
         {% csrf_token %}
@@ -36,7 +36,7 @@
         <p>{{ message }}</p>
         {% endif %}
         <div class="field">
-            <input type="submit" value="Sign Up">
+            <input type="submit" value="Add User">
         </div>
         <div class="signup-link">
             <a href="{% url 'logout' %}">Log in</a>
