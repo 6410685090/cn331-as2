@@ -87,8 +87,6 @@ def add(request):
             else:
                 course.student.add(student)
                 course.seat -= 1
-                if course.seat == 0:
-                    course.available = False
                 course.save()
                 return HttpResponseRedirect(reverse('mycourse'))
     else:
@@ -108,8 +106,6 @@ def remove(request):
         if request.method == "POST":
             course = Course.objects.get(subject_id = request.POST["course"])
             course.student.remove(student)
-            if course.seat == 0:
-                course.available = True
             course.seat += 1
             course.save()
             return HttpResponseRedirect(reverse('mycourse'))
