@@ -33,7 +33,6 @@ def login_view(request):
             login(request, user)
             if user.is_staff:
                 return HttpResponseRedirect(reverse('signup'))
-            student = Student.objects.get(user=user)
             return HttpResponseRedirect(reverse('user'))
         else:
             return render(request, 'users/login.html', {
