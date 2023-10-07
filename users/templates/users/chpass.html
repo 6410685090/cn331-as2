@@ -12,11 +12,11 @@
         {% csrf_token %}
         <div class="field">
             <input type="password" name="newpass" required>
-            <label>Password</label>
+            <label>New Password</label>
         </div>
         <div class="field">
             <input type="password" name="cnewpass" required>
-            <label>Confirm Password</label>
+            <label>Confirm New Password</label>
             {% if message %}
             <p>{{ message }}</p>
             {% endif %}
