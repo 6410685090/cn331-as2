@@ -55,3 +55,13 @@ student user สามารถกดดูข้อมูลรายวิช�
 ![](readmepic/changepass.png)
 
 หน้า change password ใช้สำหรับเปลี่ยนรหัส โดย user สามารถเปลี่ยนรหัสเองได้
+
+# Assignment 3
+
+## Link web app
+
+https://6410685090.pythonanywhere.com
+
+## Clip การใช้งาน
+
+https://drive.google.com/file/d/1hPEcA-0UeQUhxh4Y7k3eVqtJHwtLE5mp/view?usp=drivesdk
