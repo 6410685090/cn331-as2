@@ -74,10 +74,12 @@ class ViewTestCase(TestCase):
         course.seat = 0
         course.save()
         response = c.post(reverse("add"),data=data)
-        self.assertEqual(response.status_code, 200)  # if course is full will return 200
+        self.assertEqual(response.status_code, 200)  
+        self.assertTrue(course.student.count() == 0) # if add when seat full student won't incresses
 
         c.get(reverse("add")) 
-        self.assertEqual(response.status_code, 200) # if method is not post will return 200
+        self.assertEqual(response.status_code, 200) 
+        self.assertTrue(course.student.count() == 0) # if add when method is get student won't incresses
 
     def test_remove_course(self):
         """ if remove success """
@@ -92,8 +94,11 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 302) # Check remove course
         self.assertTrue(course.student.count() == 0) # if remove success student will decresses
 
+        course.student.add(student)
+        course.save()
         c.get(reverse("remove")) 
         self.assertRedirects(response, "/user/managecourse") # if method is not post will return to /managecourse
+        self.assertTrue(course.student.count() == 1) # if remove when method is get student won't decresses
 
     def test_mycourse_page(self):
         """ If you can reach mycourse page """
