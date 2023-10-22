@@ -23,14 +23,6 @@ class RegisterTestCase(TestCase):
         course.save()
         self.assertTrue(course.seat>0)
 
-    def test_seat_not_available(self):
-        """ seat not available """
-        course = Course.objects.get(subject_id="1")
-        course.available = False
-        course.save()
-        self.assertFalse(course.available)
-        self.assertTrue(str(course) == f"{course.subject_id} : not available")
-
     def test_seat_full(self):
         """ seat full """
         course = Course.objects.get(subject_id="1")
@@ -51,3 +43,4 @@ class RegisterTestCase(TestCase):
         course.available = False
         course.save()
         self.assertFalse(course.available)
+        self.assertTrue(str(course) == f"{course.subject_id} : not available")
