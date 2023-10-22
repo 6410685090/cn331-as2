@@ -68,18 +68,18 @@ class ViewTestCase(TestCase):
         course = Course.objects.get(subject_id="1")
         data = {"course" : "1"}
         response = c.post(reverse("add"),data=data)
-        self.assertTrue(course.student.count() == 1) # if add success student will incresses
+        self.assertTrue(course.student.count() == 1) # if add success student will increase
         
         course.student.remove(Student.objects.get(user=self.user1))
         course.seat = 0
         course.save()
         response = c.post(reverse("add"),data=data)
         self.assertEqual(response.status_code, 200)  
-        self.assertTrue(course.student.count() == 0) # if add when seat full student won't incresses
+        self.assertTrue(course.student.count() == 0) # if add when seat full student won't increase
 
         c.get(reverse("add")) 
         self.assertEqual(response.status_code, 200) 
-        self.assertTrue(course.student.count() == 0) # if add when method is get student won't incresses
+        self.assertTrue(course.student.count() == 0) # if add when method is get student won't increase
 
     def test_remove_course(self):
         """ if remove success """
@@ -92,13 +92,13 @@ class ViewTestCase(TestCase):
         data = {"course" : "1"}
         response = c.post(reverse("remove"),data=data)
         self.assertEqual(response.status_code, 302) # Check remove course
-        self.assertTrue(course.student.count() == 0) # if remove success student will decresses
+        self.assertTrue(course.student.count() == 0) # if remove success student will decrease
 
         course.student.add(student)
         course.save()
         c.get(reverse("remove")) 
         self.assertRedirects(response, "/user/managecourse") # if method is not post will return to /managecourse
-        self.assertTrue(course.student.count() == 1) # if remove when method is get student won't decresses
+        self.assertTrue(course.student.count() == 1) # if remove when method is get student won't decrease 
 
     def test_mycourse_page(self):
         """ If you can reach mycourse page """
